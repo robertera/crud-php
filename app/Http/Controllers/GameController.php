@@ -11,7 +11,8 @@ use App\Http\Requests\UpdateGameRequest;
 class GameController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -20,7 +21,8 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index()
+    {
         //
         $games = Game::all();
         return view('view-games.index', compact('games'));
@@ -31,12 +33,13 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
+    public function create()
+    {
         //
         return view('view-games.create');
     }
 
-/**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreGameRequest $request
@@ -47,7 +50,8 @@ class GameController extends Controller
      * StoreNoticiaRequest. Isso tambem vale para o update
      */
     //public function store(Request $request)
-    public function store(StoreGameRequest $request){
+    public function store(StoreGameRequest $request)
+    {
         $novogame = new Game();
         $novogame->name = $request->name;
         $novogame->description = $request->description;
@@ -66,7 +70,8 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game){
+    public function show(Game $game)
+    {
         //
         return view('view-games.show', compact(['game']));
     }
@@ -77,7 +82,8 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function edit(Game $game){
+    public function edit(Game $game)
+    {
         //
         return view('view-games.edit', compact(['game']));
     }
@@ -89,7 +95,8 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(updateGameRequest $request, Game $game){
+    public function update(updateGameRequest $request, Game $game)
+    {
         //
         $game->name = $request->name;
         $game->description = $request->description;
@@ -106,11 +113,12 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Game $game){
+    public function destroy(Game $game)
+    {
         //
         $game = Game::find($game->id);
 
-        if(!isset($game)){
+        if (!isset($game)) {
             $msg = 'Não há [game] para excluir com o identificador [$game->id], registrado no banco de dados!';
             $link = 'view-games.index';
             return view('games.erroid', compact('msg', 'link'));
@@ -118,5 +126,11 @@ class GameController extends Controller
 
         Game::destroy($game->id);
         return redirect()->route('games.index');
+    }
+
+    public function listAll()
+    {
+        $games = Game::all();
+        return view('view-games.list', compact('games'));
     }
 }

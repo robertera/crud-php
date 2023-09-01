@@ -12,11 +12,15 @@ class UserSeeder extends Seeder
     static $nome = [
         'Robs',
         'Sasa',
+        'Joao',
+        'Maria',
     ];
 
     static $email = [
         'robs@email.com',
         'sasa@email.com',
+        'joao@email.com',
+        'maria@email.com'
     ];
 
     public function run(): void

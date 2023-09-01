@@ -23,6 +23,8 @@ Route::resources([
     'games' => GameController::class,
 ]);
 
+Route::get('/game/list', [GameController::class, 'listAll'])->name('games.list');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
